@@ -1,17 +1,29 @@
 {% extends '@theme/layout.twig' %}
 
-{% block title %}{{ ok ? 'Thanks' : 'Try again' }} · {{ site.name }}{% endblock %}
+{% block title %}{{ ok ? 'Thank you' : 'Try again' }} — {{ site.name }}{% endblock %}
 
 {% block content %}
-<div class="wrap" style="text-align:center;padding:4rem 0;">
-    {% if ok %}
-        <h1>Thanks for getting in touch.</h1>
-        <p class="lede">We received your message.</p>
-    {% else %}
-        <h1>Something went wrong.</h1>
-        <ul style="display:inline-block;text-align:left;">
-            {% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
-        <p style="margin-top:2rem;"><a href="javascript:history.back()">← Go back</a></p>
-    {% endif %}
-</div>
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">{{ ok ? '06' : '!' }}</span>
+            <p class="eyebrow">{{ ok ? 'Request received' : 'Something went wrong' }}</p>
+            {% if ok %}
+                <h1>Thank you — we'll be in touch</h1>
+                <p class="sec-head__lead">Your consultation request reached the studio. We usually reply within one to two days. If it's urgent, message us on Facebook Messenger.</p>
+            {% else %}
+                <h1>That didn't send</h1>
+            {% endif %}
+        </div>
+        {% if not ok %}
+            <div class="spec" style="max-width:32rem">
+                {% for e in errors %}<div class="spec__row"><span class="spec__k">Error</span><span class="spec__v">{{ e }}</span></div>{% endfor %}
+            </div>
+            <p style="margin-top:1.5rem"><a class="btn btn--outline" href="/contact">&larr; Back to the form</a></p>
+        {% else %}
+            <a class="btn" href="/">Back home <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        {% endif %}
+        <hr class="rule">
+    </div>
+</section>
 {% endblock %}

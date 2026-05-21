@@ -1,0 +1,181 @@
+{% extends '@theme/layout.twig' %}
+{% set active = 'services' %}
+
+{% block title %}Services — Anyo at Disenyo{% endblock %}
+{% set meta_description = 'Architectural services from Anyo at Disenyo: residential design, construction documents, design supervision and renovation, with a clear five-stage process.' %}
+
+{% block head %}
+<style>
+    .srv-rows { border-top: 2px solid var(--ink); }
+    .srv-row { display: grid; grid-template-columns: 1fr auto; gap: .6rem 2rem; align-items: baseline; padding: clamp(1.3rem,3vw,2rem) 0; border-bottom: 1px solid var(--gray); }
+    .srv-row__title { font-family: var(--display); font-weight: 700; font-stretch: 125%; text-transform: uppercase; font-size: clamp(1.5rem,3vw,2.2rem); line-height: 1; margin: 0 0 .5rem; }
+    .srv-row__desc { color: var(--ink); max-width: 60ch; margin: 0; }
+    .srv-row__tag { font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; color: var(--olive); white-space: nowrap; align-self: start; padding-top: .4rem; }
+
+    .steps { display: grid; grid-template-columns: repeat(5,1fr); gap: clamp(1rem,2.5vw,1.8rem); }
+    .step__no { font-family: var(--display); font-weight: 700; font-stretch: 125%; font-size: clamp(2.4rem,5vw,3.4rem); line-height: 1; color: var(--ink); }
+    .step__bar { height: 2px; background: var(--ink); margin: .55rem 0 .8rem; }
+    .step h3 { font-size: 1.05rem; margin: 0 0 .35rem; }
+    .step p { font-size: .9rem; margin: 0; }
+
+    /* duotone render band */
+    .duo { position: relative; display: block; background: var(--ink); line-height: 0; border-top: 2px solid var(--teak); border-bottom: 2px solid var(--teak); }
+    .duo img { display: block; width: 100%; height: clamp(220px,30vw,380px); object-fit: cover; filter: grayscale(1) contrast(1.12); mix-blend-mode: screen; opacity: .92; }
+    .duo::after { content: ""; position: absolute; inset: 0; background: var(--cream); mix-blend-mode: multiply; pointer-events: none; }
+    .duo__cap { position: absolute; left: 0; bottom: 0; z-index: 2; background: var(--ink); color: var(--cream); font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; padding: .45rem .8rem; }
+
+    .deliver { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: center; }
+    .deliver .glyph { color: var(--ink); width: clamp(120px,16vw,200px); margin-left: auto; opacity: .9; }
+    .deliver .glyph svg { width: 100%; height: auto; display: block; }
+
+    .cta-band { text-align: center; }
+    .cta-band .eyebrow { color: #e3e1bd; }
+    .cta-band h2 { color: var(--chalk); font-size: clamp(2.2rem,5vw,3.6rem); max-width: 20ch; margin: 0 auto 1.8rem; }
+
+    @media (max-width: 860px) {
+        .steps { grid-template-columns: 1fr 1fr; gap: 1.4rem 1.6rem; }
+        .deliver { grid-template-columns: 1fr; }
+        .deliver .glyph { margin: 0; }
+    }
+    @media (max-width: 460px) {
+        .srv-row { grid-template-columns: 1fr; }
+        .srv-row__tag { padding-top: 0; }
+        .steps { grid-template-columns: 1fr; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{# ===== 03 · SERVICES OPENER ===== #}
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">03</span>
+            <p class="eyebrow">Scope &amp; process</p>
+            <h1>Services</h1>
+            <p class="sec-head__lead">A licensed practice covering the full arc of a house — from the first conversation on site to the drawing set your contractor builds from. Clear stages, clear deliverables, no surprises.</p>
+        </div>
+
+        <div class="srv-rows">
+            {% if entries|length %}
+                {% for s in entries %}
+                <div class="srv-row">
+                    <div>
+                        <h2 class="srv-row__title">{{ s.field('title') }}</h2>
+                        <p class="srv-row__desc">{{ s.field('summary') }}</p>
+                    </div>
+                    <span class="srv-row__tag">/ {{ '%02d'|format(loop.index) }}</span>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="srv-row">
+                    <div>
+                        <h2 class="srv-row__title">Residential design</h2>
+                        <p class="srv-row__desc">New Filipino homes designed around climate and family life — orientation, cross-ventilation, shade, and the way you actually move through a house.</p>
+                    </div>
+                    <span class="srv-row__tag">/ 01</span>
+                </div>
+                <div class="srv-row">
+                    <div>
+                        <h2 class="srv-row__title">Construction documents</h2>
+                        <p class="srv-row__desc">Complete, permit-ready drawing sets — plans, sections, details, and schedules a contractor can price and build without guesswork.</p>
+                    </div>
+                    <span class="srv-row__tag">/ 02</span>
+                </div>
+                <div class="srv-row">
+                    <div>
+                        <h2 class="srv-row__title">Design supervision</h2>
+                        <p class="srv-row__desc">On-site review through construction so what gets built matches the drawings — and the original intent survives the build.</p>
+                    </div>
+                    <span class="srv-row__tag">/ 03</span>
+                </div>
+                <div class="srv-row">
+                    <div>
+                        <h2 class="srv-row__title">Renovation &amp; remodelling</h2>
+                        <p class="srv-row__desc">Reworking an existing home for more light, air, and space — keeping what works and reshaping what doesn't.</p>
+                    </div>
+                    <span class="srv-row__tag">/ 04</span>
+                </div>
+            {% endif %}
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== Design process — sage band, 01→05 ===== #}
+<section class="band band--sage reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <p class="eyebrow">The design process</p>
+            <h2>Five stages, start to finish</h2>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step__no">01</div><div class="step__bar"></div>
+                <h3>Consultation</h3>
+                <p>We meet, walk the site, and shape the brief and budget together.</p>
+            </div>
+            <div class="step">
+                <div class="step__no">02</div><div class="step__bar"></div>
+                <h3>Concept</h3>
+                <p>First plans and renders test the form against light, air, and view.</p>
+            </div>
+            <div class="step">
+                <div class="step__no">03</div><div class="step__bar"></div>
+                <h3>Design development</h3>
+                <p>Materials, structure, and details resolved into a clear scheme.</p>
+            </div>
+            <div class="step">
+                <div class="step__no">04</div><div class="step__bar"></div>
+                <h3>Construction docs</h3>
+                <p>The full, permit-ready set your contractor builds from.</p>
+            </div>
+            <div class="step">
+                <div class="step__no">05</div><div class="step__bar"></div>
+                <h3>Supervision</h3>
+                <p>Site visits and reviews keep the build true to the design.</p>
+            </div>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== Duotone render band ===== #}
+<figure class="duo reveal">
+    <img src="/uploads/ref-01.png" alt="Tropical-modern residence render in a bistre-and-cream duotone treatment">
+    <figcaption class="duo__cap">Studio render · duotone</figcaption>
+</figure>
+
+{# ===== Deliverables — teak band, drafting spec block ===== #}
+<section class="band band--teak reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <p class="eyebrow">At handover</p>
+            <h2>What you receive</h2>
+        </div>
+        <div class="deliver">
+            <div class="spec">
+                <div class="spec__row"><span class="spec__k">You receive</span><span class="spec__v">Architectural plans</span></div>
+                <div class="spec__row"><span class="spec__k">—</span><span class="spec__v">Elevations &amp; sections</span></div>
+                <div class="spec__row"><span class="spec__k">—</span><span class="spec__v">Construction details</span></div>
+                <div class="spec__row"><span class="spec__k">—</span><span class="spec__v">Door, window &amp; finish schedules</span></div>
+                <div class="spec__row"><span class="spec__k">—</span><span class="spec__v">Concept renders</span></div>
+                <div class="spec__row"><span class="spec__k">—</span><span class="spec__v">Permit-ready document set</span></div>
+            </div>
+            <div class="glyph" aria-hidden="true">{% include '@theme/_monogram.twig' %}</div>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== Closing CTA ===== #}
+<section class="band band--olive cta-band reveal">
+    <div class="wrap">
+        <p class="eyebrow">Start with a conversation</p>
+        <h2>Tell us about your site and your family</h2>
+        <a href="/contact" class="btn btn--light">Request consultation <span class="arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+</section>
+
+{% endblock %}

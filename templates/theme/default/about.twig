@@ -1,0 +1,121 @@
+{% extends '@theme/layout.twig' %}
+{% set active = 'about' %}
+
+{% block title %}About — Anyo at Disenyo{% endblock %}
+{% set meta_description = 'Anyo at Disenyo is a Batangas City architectural practice. Anyo means form; disenyo means design — climate-appropriate, tropical-modern Filipino homes.' %}
+
+{% block head %}
+<style>
+    .masthead { display: grid; grid-template-columns: 1fr auto; gap: clamp(1.5rem,4vw,3rem); align-items: center; }
+    .masthead__logo { background: var(--chalk); padding: 18px; line-height: 0; justify-self: end; }
+    .masthead__logo img { display: block; width: 220px; max-width: 100%; height: auto; }
+
+    .story { position: relative; }
+    .story .monogram-bg { color: var(--olive); opacity: .08; top: 4%; right: -8%; width: clamp(280px,42vw,560px); z-index: 0; }
+    .story__col { position: relative; z-index: 1; max-width: 62ch; }
+    .story__col h2 { margin-top: 2.4rem; }
+    .story__col p { font-size: 1.0625rem; margin: 0 0 1.15rem; }
+    .story__lede { font-size: clamp(1.2rem,2.2vw,1.5rem); line-height: 1.45; color: var(--ink); font-family: var(--body); font-weight: 500; }
+
+    .phil-bleed { width: 100vw; margin-left: calc(50% - 50vw); border-top: 2px solid var(--teak); border-bottom: 2px solid var(--teak); line-height: 0; position: relative; }
+    .phil-bleed img { width: 100%; height: clamp(300px,46vw,580px); object-fit: cover; display: block; }
+    .phil-bleed figcaption { position: absolute; left: 0; bottom: 0; background: var(--ink); color: var(--cream); font-family: var(--mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; padding: .5rem .85rem; }
+
+    .roots { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: start; }
+    .roots .spec { margin-top: .5rem; }
+
+    .cta-band { text-align: center; }
+    .cta-band .eyebrow { color: #e3e1bd; }
+    .cta-band h2 { color: var(--chalk); font-size: clamp(2.2rem,5vw,3.6rem); max-width: 20ch; margin: 0 auto 1.8rem; }
+
+    @media (max-width: 720px) {
+        .masthead { grid-template-columns: 1fr; }
+        .masthead__logo { justify-self: start; }
+        .masthead__logo img { width: 180px; }
+        .roots { grid-template-columns: 1fr; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{# ===== 04 · ABOUT OPENER + MASTHEAD ===== #}
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">04</span>
+            <p class="eyebrow">The practice</p>
+            <h1>About</h1>
+        </div>
+        <div class="masthead">
+            <p class="story__lede">A small Batangas architectural studio with a simple discipline: design homes that belong to their climate, and draw them precisely enough to build.</p>
+            <span class="masthead__logo">
+                <img src="/uploads/logo.jpg" alt="Anyo at Disenyo — Architectural Services lock-up">
+            </span>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== Story — with ghosted rotated monogram behind ===== #}
+<section class="section story reveal">
+    <div class="monogram-bg" aria-hidden="true">{% include '@theme/_monogram.twig' %}</div>
+    <div class="wrap">
+        <div class="story__col">
+            <p class="eyebrow">The name</p>
+            <h2>Anyo &amp; Disenyo</h2>
+            <p>In Tagalog, <strong>anyo</strong> means <em>form</em> and <strong>disenyo</strong> means <em>design</em>. Together they describe how we work: every house starts with form — how a family lives, gathers, and rests — and is resolved through design that answers where it stands.</p>
+
+            <h2>A climate-first practice</h2>
+            <p>Batangas is hot, bright, and wet, with sea air never far away. We design for it directly: orientation that ducks the western sun, deep eaves and louvered screens for shade, cross-ventilation that keeps rooms cool without machinery, and honest materials — stone, timber, concrete — that age well in the tropics.</p>
+            <p>The result is tropical-modern: clean, grounded houses that feel calm and current, and stay comfortable in a Philippine climate rather than fighting it.</p>
+
+            <h2>Drawn to be built</h2>
+            <p>We are a licensed architectural practice, and we work like one. Projects move through clear, numbered stages and end in a complete construction-document set — drawings detailed enough that a contractor can price and build them with confidence. Licensure and credentials are available on request.</p>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== Philosophy image — ref-02 full-bleed ===== #}
+<figure class="phil-bleed reveal">
+    <img src="/uploads/ref-02.png" alt="Conceptual X-ray render of a glass house among bamboo — structure and landscape reading through each other">
+    <figcaption>Approach study · structure read through landscape</figcaption>
+</figure>
+
+{# ===== Roots / Batangas tie ===== #}
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <p class="eyebrow">Where we work</p>
+            <h2>Rooted in Batangas</h2>
+        </div>
+        <div class="roots">
+            <div>
+                <p>We are based in Batangas City and work across the province and nearby Calabarzon. Being local means we know the sites, the sun, the trades, and the way people here want to live — and we can be on site when it matters.</p>
+                <p>Off Facebook and on our own ground, this is the studio's home base — a place to see the work, understand the process, and start a conversation.</p>
+            </div>
+            <div>
+                <div class="spec">
+                    <div class="spec__row"><span class="spec__k">Studio</span><span class="spec__v">Anyo at Disenyo</span></div>
+                    <div class="spec__row"><span class="spec__k">Discipline</span><span class="spec__v">Architectural services</span></div>
+                    <div class="spec__row"><span class="spec__k">Base</span><span class="spec__v">Batangas City, PH</span></div>
+                    <div class="spec__row"><span class="spec__k">Focus</span><span class="spec__v">Tropical-modern homes</span></div>
+                    <div class="spec__row"><span class="spec__k">Stages</span><span class="spec__v">Concept → Supervision</span></div>
+                </div>
+            </div>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== Closing CTA ===== #}
+<section class="band band--olive cta-band reveal">
+    <div class="wrap">
+        <p class="eyebrow">From form to design</p>
+        <h2>Let's design something built for here</h2>
+        <a href="/contact" class="btn btn--light">Request consultation <span class="arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+</section>
+
+{% endblock %}

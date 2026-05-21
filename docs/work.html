@@ -3,13 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{{ site.name }} — Architectural Services, Batangas{% endblock %}</title>
-    {% if meta_description is defined %}
-        <meta name="description" content="{{ meta_description }}">
-    {% else %}
-        <meta name="description" content="Anyo at Disenyo is a licensed Batangas architectural practice designing modern, climate-smart Filipino homes — from first concept to construction documents.">
-    {% endif %}
-    <link rel="icon" href="/uploads/favicon.ico" sizes="any">
+    <title>Work — Anyo at Disenyo</title>
+            <meta name="description" content="Selected architectural renders and projects by Anyo at Disenyo, a Batangas City practice designing climate-smart Filipino homes.">
+        <link rel="icon" href="uploads/favicon.ico" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -255,26 +251,74 @@
             .site-footer__in { grid-template-columns: 1fr; gap: 1.75rem; }
         }
     </style>
-    {% block head %}{% endblock %}
+    <style>
+    .proj { position: relative; padding-top: clamp(2.5rem,5vw,4rem); }
+    .proj__num {
+        font-family: var(--display); font-weight: 700; font-stretch: 125%;
+        font-size: clamp(4.5rem,11vw,9rem); line-height: .8; color: var(--brick);
+        letter-spacing: -.03em; margin: 0 0 -.05em -.04em; display: block; pointer-events: none;
+    }
+    @media (min-width:880px){ .proj__num { margin-left: -42px; } }
+    .proj__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.2rem; margin-bottom: 1.4rem; }
+    .proj__title { font-size: clamp(1.8rem,3.4vw,2.6rem); margin: 0; }
+    .proj__where { font-family: var(--mono); font-size: .8125rem; text-transform: uppercase; letter-spacing: .1em; color: var(--olive); }
+
+    .proj__bleed { width: 100vw; margin-left: calc(50% - 50vw); border-top: 2px solid var(--teak); border-bottom: 2px solid var(--teak); line-height: 0; }
+    .proj__bleed img { width: 100%; height: clamp(260px,44vw,560px); object-fit: cover; display: block; }
+
+    .proj__cols { display: grid; grid-template-columns: 2fr 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: start; margin-top: clamp(1.5rem,3vw,2.2rem); }
+    .proj__cols--flip { grid-template-columns: 1fr 2fr; }
+    .proj__cols--flip .proj__media { order: 2; }
+    .proj__media .render img { aspect-ratio: 4/3; object-fit: cover; }
+    .proj__body { color: var(--ink); }
+    .proj__body p { margin: 1rem 0 0; }
+    .proj__body .spec { margin-bottom: 1.2rem; }
+
+    /* halftone context photo */
+    .halftone { position: relative; display: block; line-height: 0; border: 2px solid var(--teak); }
+    .halftone::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background-image: radial-gradient(circle, rgba(39,39,31,.5) 22%, transparent 24%);
+        background-size: 5px 5px; mix-blend-mode: multiply; opacity: .55;
+    }
+    .halftone img { display: block; width: 100%; height: clamp(240px,34vw,420px); object-fit: cover; filter: contrast(1.08) saturate(.65); }
+    .context { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: center; }
+
+    .placeholder {
+        border: 2px dashed var(--ink); padding: clamp(2rem,5vw,3.5rem); text-align: center;
+        font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--ink);
+    }
+    .placeholder strong { display: block; font-family: var(--display); font-stretch: 125%; font-size: clamp(1.4rem,3vw,2rem); letter-spacing: 0; margin-bottom: .5rem; }
+
+    .cta-band { text-align: center; }
+    .cta-band .eyebrow { color: #e3e1bd; }
+    .cta-band h2 { color: var(--chalk); font-size: clamp(2.2rem,5vw,3.6rem); max-width: 18ch; margin: 0 auto 1.8rem; }
+
+    @media (max-width: 860px) {
+        .proj__cols, .proj__cols--flip { grid-template-columns: 1fr; }
+        .proj__cols--flip .proj__media { order: 0; }
+        .context { grid-template-columns: 1fr; }
+    }
+</style>
 </head>
 <body>
     <script>document.documentElement.classList.add('js');</script>
 
     <header class="site-header">
         <div class="site-header__in">
-            <a class="brand" href="/" aria-label="{{ site.name }} — home">
-                <span class="brand__mark"><img src="/uploads/logo.jpg" alt="Anyo at Disenyo monogram"></span>
+            <a class="brand" href="index.html" aria-label="Anyo45 — home">
+                <span class="brand__mark"><img src="uploads/logo.jpg" alt="Anyo at Disenyo monogram"></span>
                 <span class="brand__txt">
                     <span class="brand__name">Anyo&nbsp;at&nbsp;Disenyo</span>
                     <span class="brand__sub">Architectural Services</span>
                 </span>
             </a>
             <nav class="nav" aria-label="Primary">
-                <a href="/work"     class="{{ active == 'work' ? 'is-active' }}">Work</a>
-                <a href="/services" class="{{ active == 'services' ? 'is-active' }}">Services</a>
-                <a href="/about"    class="{{ active == 'about' ? 'is-active' }}">About</a>
-                <a href="/contact"  class="{{ active == 'contact' ? 'is-active' }}">Contact</a>
-                <a href="/contact" class="btn nav__cta">Request consultation <span class="arrow" aria-hidden="true">&rarr;</span></a>
+                <a href="work.html"     class="is-active">Work</a>
+                <a href="services.html" class="">Services</a>
+                <a href="about.html"    class="">About</a>
+                <a href="contact.html"  class="">Contact</a>
+                <a href="contact.html" class="btn nav__cta">Request consultation <span class="arrow" aria-hidden="true">&rarr;</span></a>
             </nav>
             <button class="menu-toggle" id="menuToggle" aria-controls="mnav" aria-expanded="false">Menu</button>
         </div>
@@ -287,24 +331,131 @@
                 <button class="mnav__close" id="menuClose" aria-label="Close menu">Close</button>
             </div>
             <nav class="mnav__links" aria-label="Mobile">
-                <a href="/work">Work</a>
-                <a href="/services">Services</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
+                <a href="work.html">Work</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
             </nav>
             <div class="mnav__foot">EST. BATANGAS&nbsp;CITY · <em>anyo</em>&nbsp;— form · <em>disenyo</em>&nbsp;— design</div>
         </div>
     </div>
 
     <main>
-        {% block content %}{% endblock %}
+        
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">02</span>
+            <p class="eyebrow">Portfolio</p>
+            <h1>Work</h1>
+            <p class="sec-head__lead">The studio's renders, presented as a working portfolio rather than a feed. Each one is drawn in-house, in the same quiet, low-contrast style — the architecture leading, the grid keeping it honest.</p>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+
+<section class="proj reveal">
+    <div class="wrap">
+        <span class="proj__num" aria-hidden="true">01</span>
+        <div class="proj__head">
+            <h2 class="proj__title">Hillside Residence</h2>
+            <span class="proj__where">Batangas · Residential</span>
+        </div>
+    </div>
+    <figure class="proj__bleed">
+        <img src="uploads/ref-01.png" alt="Tropical-modern hillside residence with pitched roofs, teak louver screens and tinted glazing, three-quarter render">
+    </figure>
+    <div class="wrap">
+        <div class="proj__cols">
+            <div class="proj__body">
+                <p>A stepped family home that follows the contour of the slope. Pitched roofs throw deep shade across the upper terrace, timber louver screens filter the hard western sun, and sage-tinted glazing opens the living level to the valley. The massing breaks the volume down so a large house still reads as a cluster of smaller, climate-tuned forms.</p>
+                <p>Drawn from concept through to the construction-document set a contractor can price and build.</p>
+            </div>
+            <div class="proj__media">
+                <div class="spec">
+                    <div class="spec__row"><span class="spec__k">Scope</span><span class="spec__v">Residential design + CD</span></div>
+                    <div class="spec__row"><span class="spec__k">Location</span><span class="spec__v">Batangas</span></div>
+                    <div class="spec__row"><span class="spec__k">Year</span><span class="spec__v">2022</span></div>
+                    <div class="spec__row"><span class="spec__k">Status</span><span class="spec__v">Concept render</span></div>
+                </div>
+            </div>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+<section class="proj reveal">
+    <div class="wrap">
+        <span class="proj__num" aria-hidden="true">02</span>
+        <div class="proj__head">
+            <h2 class="proj__title">Garden Pavilion</h2>
+            <span class="proj__where">Batangas · Concept study</span>
+        </div>
+        <div class="proj__cols proj__cols--flip">
+            <div class="proj__media">
+                <figure class="render">
+                    <img src="uploads/ref-02.png" alt="Conceptual X-ray render of a glass pavilion among bamboo and trees, structure and landscape reading through each other">
+                </figure>
+            </div>
+            <div class="proj__body">
+                <div class="spec">
+                    <div class="spec__row"><span class="spec__k">Scope</span><span class="spec__v">Concept study</span></div>
+                    <div class="spec__row"><span class="spec__k">Location</span><span class="spec__v">Batangas</span></div>
+                    <div class="spec__row"><span class="spec__k">Year</span><span class="spec__v">2023</span></div>
+                    <div class="spec__row"><span class="spec__k">Status</span><span class="spec__v">In design</span></div>
+                </div>
+                <p>An X-ray study of a glass pavilion set in a bamboo grove. Rendered semi-transparent so structure and landscape read through each other, the drawing tests how lightly a house can sit in the green — a question of restraint as much as form.</p>
+            </div>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <p class="eyebrow">Context</p>
+            <h2>The kind of place we build for</h2>
+        </div>
+        <div class="context">
+            <figure class="halftone">
+                <img src="uploads/context-house.jpg" alt="A modern stone-and-white house with arches on a tropical hillside under a bright sky">
+            </figure>
+            <div>
+                <p>Batangas builds for sun, rain, and sea air. Our work answers that climate — stone bases, deep eaves, screened openings, and shaded outdoor rooms.</p>
+                <p class="figcap">Context image — tropical residential architecture, Philippines. Not a project by Anyo at Disenyo.</p>
+            </div>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+<section class="section--tight reveal">
+    <div class="wrap">
+        <div class="placeholder">
+            <strong>More projects — coming soon</strong>
+            Add your finished homes and renders from the studio admin.
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+<section class="band band--olive cta-band reveal">
+    <div class="wrap">
+        <p class="eyebrow">Have a site in mind?</p>
+        <h2>Let's put your project on this page</h2>
+        <a href="contact.html" class="btn btn--light">Request consultation <span class="arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+</section>
+
     </main>
 
     <footer class="site-footer">
         <div class="site-footer__in">
             <div>
                 <span class="footer-logo">
-                    <img src="/uploads/logo.jpg" alt="Anyo at Disenyo — Architectural Services">
+                    <img src="uploads/logo.jpg" alt="Anyo at Disenyo — Architectural Services">
                 </span>
             </div>
             <div class="footer-col">
@@ -313,24 +464,23 @@
                     Batangas City, Batangas<br>
                     Philippines
                 </address>
-                {# Replace with the firm's real phone + email before launch. #}
-                <p><a href="https://www.facebook.com/anyoatdisenyo" target="_blank" rel="noopener">facebook.com/anyoatdisenyo</a></p>
+                                <p><a href="https://www.facebook.com/anyoatdisenyo" target="_blank" rel="noopener">facebook.com/anyoatdisenyo</a></p>
                 <p><a href="https://m.me/anyoatdisenyo" target="_blank" rel="noopener">Message on Messenger</a></p>
             </div>
             <div class="footer-col">
                 <h4>Site</h4>
                 <nav class="footer-nav" aria-label="Footer">
-                    <a href="/">Home</a>
-                    <a href="/work">Work</a>
-                    <a href="/services">Services</a>
-                    <a href="/about">About</a>
-                    <a href="/contact">Contact</a>
+                    <a href="index.html">Home</a>
+                    <a href="work.html">Work</a>
+                    <a href="services.html">Services</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
                 </nav>
             </div>
         </div>
         <div class="site-footer__base">
             <span class="meaning"><em>anyo</em> — form&nbsp;·&nbsp;<em>disenyo</em> — design</span>
-            <span>© {{ "now"|date('Y') }} Anyo at Disenyo · Architectural Services</span>
+            <span>© 2026 Anyo at Disenyo · Architectural Services</span>
         </div>
     </footer>
 

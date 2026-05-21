@@ -1,0 +1,23 @@
+{% extends '@theme/layout.twig' %}
+{% set active = 'services' %}
+{% set meta_description = entry.field('summary') %}
+
+{% block title %}{{ entry.field('title') }} — Services — Anyo at Disenyo{% endblock %}
+
+{% block content %}
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">03</span>
+            <p class="eyebrow">Service</p>
+            <h1>{{ entry.field('title') }}</h1>
+        </div>
+        <div class="prose">
+            {% if entry.field('summary') %}<p class="story__lede">{{ entry.field('summary') }}</p>{% endif %}
+            {{ entry.field('body')|markdown }}
+        </div>
+        <p style="margin-top:2rem"><a class="btn btn--outline" href="/services">&larr; All services</a></p>
+        <hr class="rule">
+    </div>
+</section>
+{% endblock %}

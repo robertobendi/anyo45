@@ -1,0 +1,47 @@
+{% extends '@theme/layout.twig' %}
+{% set active = 'work' %}
+{% set meta_description = entry.field('summary') %}
+
+{% block title %}{{ entry.field('title') }} — Work — Anyo at Disenyo{% endblock %}
+
+{% block head %}
+<style>
+    .proj-bleed { width: 100vw; margin-left: calc(50% - 50vw); border-top: 2px solid var(--teak); border-bottom: 2px solid var(--teak); line-height: 0; }
+    .proj-bleed img { width: 100%; height: clamp(280px,46vw,560px); object-fit: cover; display: block; }
+    .proj-detail { display: grid; grid-template-columns: 2fr 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: start; margin-top: clamp(1.5rem,3vw,2.5rem); }
+    @media (max-width: 820px) { .proj-detail { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">01</span>
+            <p class="eyebrow">Project</p>
+            <h1>{{ entry.field('title') }}</h1>
+            {% if entry.field('summary') %}<p class="sec-head__lead">{{ entry.field('summary') }}</p>{% endif %}
+        </div>
+    </div>
+    {% if entry.field('image') %}
+    <figure class="proj-bleed">
+        <img src="{{ entry.field('image') }}" alt="{{ entry.field('image_alt', entry.field('title')) }}">
+    </figure>
+    {% endif %}
+    <div class="wrap">
+        <div class="proj-detail">
+            <div class="prose">
+                {{ entry.field('body')|markdown }}
+            </div>
+            <div class="spec">
+                <div class="spec__row"><span class="spec__k">Scope</span><span class="spec__v">{{ entry.field('scope', '—') }}</span></div>
+                <div class="spec__row"><span class="spec__k">Location</span><span class="spec__v">{{ entry.field('location', '—') }}</span></div>
+                <div class="spec__row"><span class="spec__k">Year</span><span class="spec__v">{{ entry.field('year', '—') }}</span></div>
+                <div class="spec__row"><span class="spec__k">Status</span><span class="spec__v">{{ entry.field('status', '—') }}</span></div>
+            </div>
+        </div>
+        <p style="margin-top:2rem"><a class="btn btn--outline" href="/work">&larr; All work</a></p>
+        <hr class="rule">
+    </div>
+</section>
+{% endblock %}

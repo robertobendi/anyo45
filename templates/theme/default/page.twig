@@ -1,13 +1,19 @@
 {% extends '@theme/layout.twig' %}
 {% set meta_description = entry.field('meta_description') %}
 
-{% block title %}{{ entry.field('title') }} · {{ site.name }}{% endblock %}
+{% block title %}{{ entry.field('title') }} — {{ site.name }}{% endblock %}
 
 {% block content %}
-<article class="wrap">
-    <h1>{{ entry.field('title') }}</h1>
-    <div class="article-body">
-        {{ entry.field('body')|markdown }}
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <p class="eyebrow">Anyo at Disenyo</p>
+            <h1>{{ entry.field('title') }}</h1>
+        </div>
+        <div class="prose">
+            {{ entry.field('body')|markdown }}
+        </div>
+        <hr class="rule">
     </div>
-</article>
+</section>
 {% endblock %}

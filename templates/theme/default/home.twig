@@ -1,21 +1,249 @@
 {% extends '@theme/layout.twig' %}
+{% set active = 'home' %}
+
+{% block title %}Anyo at Disenyo — Architectural Services, Batangas City{% endblock %}
+
+{% block head %}
+<style>
+    /* ---- Hero ---- */
+    .hero { position: relative; border-bottom: 2px solid var(--ink); }
+    .hero__grid { display: grid; grid-template-columns: 1.38fr 1fr; }
+    .hero__left {
+        background: var(--olive); color: var(--chalk); position: relative; overflow: hidden;
+        display: flex; flex-direction: column; justify-content: center;
+        padding: clamp(2.4rem,5vw,4.6rem) clamp(1.6rem,3.5vw,3.2rem);
+        padding-left: max(var(--gutter), calc(50vw - var(--max)/2 + var(--gutter)));
+        min-height: clamp(460px, 66vh, 660px);
+    }
+    .hero__left > * { position: relative; z-index: 1; }
+    .hero .monogram-bg { color: var(--chalk); opacity: .10; top: -16%; right: -22%; width: 86%; }
+    .hero__kicker { font-family: var(--mono); font-weight: 500; font-size: .8125rem; text-transform: uppercase; letter-spacing: .16em; color: #e3e1bd; margin: 0 0 1.4rem; }
+    .hero__title { color: var(--chalk); margin: 0 0 1.3rem; }
+    .hero__sub { max-width: 44ch; color: #ece9cf; font-size: 1.0625rem; line-height: 1.6; margin: 0 0 2rem; }
+    .hero__right { position: relative; border-left: 2px solid var(--teak); min-height: 320px; }
+    .hero__right img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero__tag { position: absolute; left: 0; bottom: 0; background: var(--ink); color: var(--cream); font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; padding: .5rem .8rem; z-index: 2; }
+
+    /* ---- Name-meaning (teak band) ---- */
+    .meaning-block { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(1.5rem,4vw,3.5rem); align-items: end; }
+    .meaning-big { font-family: var(--display); font-weight: 700; font-stretch: 125%; text-transform: uppercase; line-height: 1.0; font-size: clamp(1.9rem,4.4vw,3.4rem); margin: 0; }
+    .meaning-big .term { color: var(--olive); }
+    .meaning-big .dot { color: var(--ink); }
+    .meaning-copy p { font-size: 1.0625rem; margin: 0 0 1rem; }
+
+    /* ---- Services preview rows ---- */
+    .scope-rows { border-top: 2px solid var(--ink); margin: 0 0 1.8rem; }
+    .scope-row { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 1rem 1.4rem; align-items: baseline; padding: 1.15rem 0; border-bottom: 1px solid var(--gray); }
+    .scope-row__no { font-family: var(--mono); font-size: .8125rem; color: var(--brick); letter-spacing: .08em; }
+    .scope-row__title { font-family: var(--display); font-weight: 700; font-stretch: 125%; text-transform: uppercase; font-size: 1.3rem; line-height: 1; }
+    .scope-row__desc { font-size: .95rem; color: var(--ink); max-width: 46ch; }
+    .scope-row__tag { font-family: var(--mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--olive); white-space: nowrap; }
+
+    /* ---- Featured work ---- */
+    .work-entry { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: start; margin-bottom: clamp(2.5rem,5vw,4rem); }
+    .work-entry--flip { grid-template-columns: 1fr 1.5fr; }
+    .work-entry--flip .work-entry__media { order: 2; }
+    .work-entry__title { font-size: clamp(1.7rem,3vw,2.4rem); margin: 0 0 .3rem; }
+    .work-entry__eyebrow { margin-bottom: 1rem; }
+    .work-entry__body { color: var(--ink); margin: 1.1rem 0 0; }
+    .work-entry .render img { aspect-ratio: 16/10; object-fit: cover; }
+    .work-entry--flip .render img { aspect-ratio: 1/1; }
+
+    /* ---- Process (sage band) ---- */
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: clamp(1.2rem,3vw,2rem); }
+    .process-step { }
+    .process-step__no { font-family: var(--display); font-weight: 700; font-stretch: 125%; font-size: clamp(2.6rem,5vw,3.6rem); color: var(--ink); line-height: 1; }
+    .process-step__bar { height: 2px; background: var(--ink); margin: .6rem 0 .9rem; }
+    .process-step h3 { font-size: 1.15rem; margin: 0 0 .4rem; }
+    .process-step p { font-size: .9375rem; margin: 0; }
+
+    /* ---- Closing CTA ---- */
+    .cta-band { text-align: center; }
+    .cta-band .eyebrow { color: #e3e1bd; }
+    .cta-band h2 { color: var(--chalk); font-size: clamp(2.2rem,5vw,3.6rem); max-width: 18ch; margin: 0 auto 1.8rem; }
+
+    @media (max-width: 860px) {
+        .hero__grid { grid-template-columns: 1fr; }
+        .hero__left { padding-left: var(--gutter); min-height: 0; padding-top: clamp(2.2rem,8vw,3rem); padding-bottom: clamp(2.2rem,8vw,3rem); }
+        .hero__right { border-left: 0; border-top: 2px solid var(--teak); min-height: 280px; aspect-ratio: 16/11; }
+        .meaning-block { grid-template-columns: 1fr; align-items: start; }
+        .work-entry, .work-entry--flip { grid-template-columns: 1fr; }
+        .work-entry--flip .work-entry__media { order: 0; }
+        .process-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 460px) {
+        .scope-row { grid-template-columns: 3rem 1fr; }
+        .scope-row__tag { grid-column: 2; }
+        .process-grid { grid-template-columns: 1fr; }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="wrap">
-    <h1>{{ site.name }}</h1>
-    <p class="lede">Welcome. This is your new Pebblestack site. Edit this page in the admin to make it your own — or create a Page with the slug <code>home</code> to replace this entirely.</p>
 
-    {% if recent_posts|length > 0 %}
-        <h2>Latest writing</h2>
-        {% for post in recent_posts %}
-            <a class="post-card" href="/blog/{{ post.slug }}">
-                <h2>{{ post.field('title', '(untitled)') }}</h2>
-                <div class="date">{{ (post.publishAt ?? post.createdAt)|date('F j, Y') }}</div>
-                {% if post.field('excerpt') %}
-                    <p>{{ post.field('excerpt') }}</p>
-                {% endif %}
-            </a>
-        {% endfor %}
-    {% endif %}
-</div>
+{# ===== 01 · HERO ===== #}
+<section class="hero">
+    <div class="hero__grid">
+        <div class="hero__left">
+            <div class="monogram-bg" aria-hidden="true">{% include '@theme/_monogram.twig' %}</div>
+            <p class="hero__kicker">EST. Batangas&nbsp;City · Licensed Architects</p>
+            <h1 class="display hero__title">Form&nbsp;&amp; design for how you live in Batangas</h1>
+            <p class="hero__sub">Anyo at Disenyo is a licensed Batangas architectural practice designing modern, climate-smart Filipino homes — from first concept to construction documents.</p>
+            <div><a href="/contact" class="btn">Request consultation <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+        </div>
+        <div class="hero__right">
+            <img src="/uploads/ref-01.png" alt="Tropical-modern residence by Anyo at Disenyo — teak louvers and tinted glass, three-quarter render view">
+            <span class="hero__tag">Anyo at Disenyo · concept render</span>
+        </div>
+    </div>
+</section>
+
+{# ===== 01 · NAME MEANING (teak band) ===== #}
+<section class="band band--teak section--tight reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">01</span>
+            <p class="eyebrow">Anyo at Disenyo</p>
+            <h2>A practice built on order and climate</h2>
+        </div>
+        <div class="meaning-block">
+            <p class="meaning-big"><span class="term">anyo</span> <span class="dot">—</span> form<br><span class="term">disenyo</span> <span class="dot">—</span> design</p>
+            <div class="meaning-copy">
+                <p>The name is a promise: every house begins with <strong>form</strong> — how a family moves, gathers, and rests — and is resolved through <strong>design</strong> that answers the Batangas climate. Cross-ventilation, deep shade, and honest materials, drawn precisely.</p>
+                <p>We work the way a building is built: in clear, numbered stages, with drawings you can hand to a contractor and trust.</p>
+            </div>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== 02 · SERVICES PREVIEW ===== #}
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">02</span>
+            <p class="eyebrow">What we do</p>
+            <h2>Architecture, end to end</h2>
+        </div>
+        <div class="scope-rows">
+            <div class="scope-row">
+                <span class="scope-row__no">/ 01</span>
+                <span class="scope-row__title">Residential design</span>
+                <span class="scope-row__desc">New homes shaped around how a Filipino family actually lives — light, air, and shade first.</span>
+                <span class="scope-row__tag">Concept → Schematic</span>
+            </div>
+            <div class="scope-row">
+                <span class="scope-row__no">/ 02</span>
+                <span class="scope-row__title">Construction documents</span>
+                <span class="scope-row__desc">Complete, buildable drawing sets a contractor can price and build without guesswork.</span>
+                <span class="scope-row__tag">CD set · permits</span>
+            </div>
+            <div class="scope-row">
+                <span class="scope-row__no">/ 03</span>
+                <span class="scope-row__title">Design supervision</span>
+                <span class="scope-row__desc">On-site review through construction so the finished house matches the drawings and the intent.</span>
+                <span class="scope-row__tag">Build phase</span>
+            </div>
+        </div>
+        <a href="/services" class="btn btn--outline">See all services &amp; process <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== 03 · FEATURED WORK ===== #}
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">03</span>
+            <p class="eyebrow">Selected work</p>
+            <h2>Renders from the studio</h2>
+            <p class="sec-head__lead">A look at how a project reads before a single block is laid — drawn in the studio's quiet, low-contrast house style.</p>
+        </div>
+
+        <article class="work-entry">
+            <figure class="work-entry__media render">
+                <img src="/uploads/ref-01.png" alt="Multi-level tropical-modern residence with timber louver screens and pitched roofs">
+            </figure>
+            <div class="work-entry__info">
+                <p class="eyebrow work-entry__eyebrow">Project 01</p>
+                <h3 class="work-entry__title">Hillside Residence</h3>
+                <div class="spec">
+                    <div class="spec__row"><span class="spec__k">Scope</span><span class="spec__v">Residential design</span></div>
+                    <div class="spec__row"><span class="spec__k">Location</span><span class="spec__v">Batangas</span></div>
+                    <div class="spec__row"><span class="spec__k">Year</span><span class="spec__v">2022</span></div>
+                    <div class="spec__row"><span class="spec__k">Status</span><span class="spec__v">Concept render</span></div>
+                </div>
+                <p class="work-entry__body">A stepped, multi-level home that follows the slope: pitched roofs throw deep shade, teak louver screens filter the western sun, and tinted glass opens the living level to the view.</p>
+            </div>
+        </article>
+
+        <article class="work-entry work-entry--flip">
+            <figure class="work-entry__media render">
+                <img src="/uploads/ref-02.png" alt="Conceptual X-ray render of a glass house among bamboo and trees">
+            </figure>
+            <div class="work-entry__info">
+                <p class="eyebrow work-entry__eyebrow">Project 02</p>
+                <h3 class="work-entry__title">Garden Pavilion</h3>
+                <div class="spec">
+                    <div class="spec__row"><span class="spec__k">Scope</span><span class="spec__v">Concept study</span></div>
+                    <div class="spec__row"><span class="spec__k">Location</span><span class="spec__v">Batangas</span></div>
+                    <div class="spec__row"><span class="spec__k">Year</span><span class="spec__v">2023</span></div>
+                    <div class="spec__row"><span class="spec__k">Status</span><span class="spec__v">In design</span></div>
+                </div>
+                <p class="work-entry__body">An X-ray study of a glass pavilion set in a bamboo grove — structure and landscape read through each other, testing how lightly a house can sit in the green.</p>
+            </div>
+        </article>
+
+        <p><a href="/work" class="btn btn--outline">View the full portfolio <span class="arrow" aria-hidden="true">&rarr;</span></a></p>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== 04 · PROCESS (sage band) ===== #}
+<section class="band band--sage reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">04</span>
+            <p class="eyebrow">How we work</p>
+            <h2>Four stages, clearly drawn</h2>
+        </div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="process-step__no">01</div>
+                <div class="process-step__bar"></div>
+                <h3>Consultation</h3>
+                <p>We listen to how you live, walk the site, and set the budget and brief together.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step__no">02</div>
+                <div class="process-step__bar"></div>
+                <h3>Concept</h3>
+                <p>First plans and renders — the form of the house, tested against light, air, and view.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step__no">03</div>
+                <div class="process-step__bar"></div>
+                <h3>Design development</h3>
+                <p>Materials, structure, and details resolved down to what gets built.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step__no">04</div>
+                <div class="process-step__bar"></div>
+                <h3>Documents</h3>
+                <p>A complete drawing set for permits and a contractor you can hand over and trust.</p>
+            </div>
+        </div>
+        <hr class="rule">
+    </div>
+</section>
+
+{# ===== CLOSING CTA (olive band) ===== #}
+<section class="band band--olive cta-band reveal">
+    <div class="wrap">
+        <p class="eyebrow">Ready when you are</p>
+        <h2>Let's design the home you'll live in</h2>
+        <a href="/contact" class="btn btn--light">Request consultation <span class="arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+</section>
+
 {% endblock %}

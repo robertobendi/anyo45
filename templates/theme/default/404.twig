@@ -1,11 +1,18 @@
 {% extends '@theme/layout.twig' %}
 
-{% block title %}Not found · {{ site.name }}{% endblock %}
+{% block title %}Not found — {{ site.name }}{% endblock %}
 
 {% block content %}
-<div class="wrap empty-state">
-    <h1>404</h1>
-    <p class="lede">That page doesn’t exist — or has been moved.</p>
-    <p><a href="/">Go home →</a></p>
-</div>
+<section class="section reveal">
+    <div class="wrap">
+        <div class="sec-head">
+            <span class="numeral" aria-hidden="true">404</span>
+            <p class="eyebrow">Off the grid</p>
+            <h1>This page isn't drawn yet</h1>
+            <p class="sec-head__lead">The page you're after doesn't exist or has moved. Head back to the studio.</p>
+        </div>
+        <a class="btn" href="/">Back home <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <hr class="rule">
+    </div>
+</section>
 {% endblock %}
