@@ -4,8 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact — Anyo at Disenyo</title>
-            <meta name="description" content="Request a consultation with Anyo at Disenyo, a Batangas City architectural practice. Message us on Facebook or send your project details.">
-        <link rel="icon" href="/uploads/favicon.ico" sizes="any">
+        <meta name="description" content="Request a consultation with Anyo at Disenyo, a Batangas City architectural practice. Message us on Facebook or send your project details.">
+        <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Anyo at Disenyo">
+    <meta property="og:title" content="Contact — Anyo at Disenyo">
+    <meta property="og:description" content="Request a consultation with Anyo at Disenyo, a Batangas City architectural practice. Message us on Facebook or send your project details.">
+    <meta property="og:image" content="/uploads/logo.jpg">
+    <meta property="og:image:alt" content="Anyo at Disenyo — Architectural Services">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact — Anyo at Disenyo">
+    <meta name="twitter:description" content="Request a consultation with Anyo at Disenyo, a Batangas City architectural practice. Message us on Facebook or send your project details.">
+    <meta name="twitter:image" content="/uploads/logo.jpg">
+    <link rel="icon" href="/uploads/favicon.ico" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -54,7 +64,7 @@
         h2 { font-size: clamp(2rem, 3.5vw, 2.75rem); }
         h3 { font-size: 1.375rem; letter-spacing: 0; }
         p, ul, ol { margin: 0 0 1.15em; }
-        a { color: var(--brick); text-decoration: none; }
+        a { color: #9e3a26; text-decoration: none; } /* darker brick — inline links clear AA on cream */
         a:hover { color: var(--ink); }
         strong { font-weight: 500; }
         img { max-width: 100%; height: auto; }
@@ -62,7 +72,7 @@
 
         .display {
             font-family: var(--display); font-weight: 700; font-stretch: 125%;
-            font-size: clamp(3.2rem, 8vw, 6.5rem); line-height: .92;
+            font-size: clamp(2.6rem, 6.2vw, 5rem); line-height: .92;
             text-transform: uppercase; letter-spacing: -0.015em; margin: 0;
         }
 
@@ -83,15 +93,22 @@
         }
 
         /* ---- Section head with oversized index numeral ---- */
-        .sec-head { position: relative; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+        /* Fingerprint #1: the giant brick numeral bleeds ~40px left AND overlaps the heading.
+           sec-head is a flex column; the eyebrow is ordered above the numeral (so its small
+           olive label stays legible on cream), then the H2/H1 is pulled up with a negative
+           margin so it rides over the lower half of the numeral, which paints behind it
+           (z-index 0) — no clear gap, the heading wins the foreground. */
+        .sec-head { position: relative; display: flex; flex-direction: column; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
         .numeral {
-            display: block; font-family: var(--display); font-weight: 700; font-stretch: 125%;
-            font-size: clamp(6rem, 14vw, 11rem); line-height: .78; color: var(--brick);
-            letter-spacing: -0.03em; margin: 0 0 -0.12em -0.04em; position: relative; z-index: 0;
+            display: block; order: 0; font-family: var(--display); font-weight: 700; font-stretch: 125%;
+            font-size: clamp(6rem, 14vw, 11rem); line-height: .74; color: var(--brick);
+            letter-spacing: -0.03em; margin: 0 0 0 -0.04em; position: relative; z-index: 0;
             pointer-events: none;
         }
-        .sec-head .eyebrow, .sec-head h2, .sec-head h1 { position: relative; z-index: 1; }
-        .sec-head__lead { max-width: 56ch; color: var(--ink); margin-top: .4rem; }
+        .sec-head .eyebrow { order: -1; position: relative; z-index: 1; }
+        .sec-head h2, .sec-head h1 { order: 1; position: relative; z-index: 1; }
+        .sec-head .numeral ~ h2, .sec-head .numeral ~ h1 { margin-top: clamp(-5.6rem, -6.5vw, -2.6rem); }
+        .sec-head__lead { order: 2; max-width: 56ch; color: var(--ink); margin-top: .9rem; }
         @media (min-width: 880px) { .numeral { margin-left: -42px; } }
 
         /* ---- Buttons ---- */
@@ -100,10 +117,10 @@
             padding: .8rem 1.5rem; border-radius: 0; border: 0; cursor: pointer;
             font-family: var(--mono); font-weight: 500; font-size: .8125rem;
             text-transform: uppercase; letter-spacing: 0.1em; line-height: 1;
-            background: var(--brick); color: var(--chalk);
+            background: var(--brick); color: #fff;
             transition: background .15s ease, color .15s ease;
         }
-        .btn:hover { background: #9e3a26; color: var(--chalk); }
+        .btn:hover { background: #9e3a26; color: #fff; }
         .btn .arrow { font-family: var(--body); font-size: 1.05em; }
         .btn--outline { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
         .btn--outline:hover { background: var(--ink); color: var(--chalk); }
@@ -118,7 +135,7 @@
         .band--sage  { background: var(--sage);  color: var(--ink); }
         .band--ink   { background: var(--ink);   color: var(--cream); }
         .band--olive h1, .band--olive h2, .band--olive h3 { color: var(--chalk); }
-        .band--olive .eyebrow { color: #d8d6b0; }
+        .band--olive .eyebrow { color: var(--chalk); }
         .band--teak .eyebrow, .band--sage .eyebrow { color: var(--ink); }
 
         /* ---- Render frame: teak keyline, hard rectangle ---- */
@@ -128,7 +145,7 @@
         figure.render { margin: 0; }
         .render__cap, .figcap {
             font-family: var(--mono); font-size: .75rem; text-transform: uppercase;
-            letter-spacing: 0.1em; color: var(--gray); margin: .55rem 0 0; line-height: 1.4;
+            letter-spacing: 0.1em; color: #5c5c5c; margin: .55rem 0 0; line-height: 1.4;
         }
 
         /* ---- Drafting spec block (key / value rows) ---- */
@@ -172,8 +189,9 @@
             text-transform: uppercase; letter-spacing: .11em; color: var(--ink);
             padding: .35rem 0; position: relative;
         }
-        .nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -2px; height: 2px; background: var(--teak); transition: right .18s ease; }
-        .nav a:hover::after, .nav a.is-active::after { right: 0; }
+        /* persistent resting underline (affordance at rest + on touch); fills to solid teak on hover/active */
+        .nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: rgba(185,146,90,.4); transition: background .18s ease; }
+        .nav a:hover::after, .nav a.is-active::after { background: var(--teak); }
         .nav a.is-active { color: var(--olive); }
         .nav__cta { margin-left: .4rem; }
         .menu-toggle {
@@ -204,7 +222,7 @@
                 border-bottom: 1px solid rgba(246,243,234,.25);
             }
             .mnav__links a:hover { color: var(--teak); }
-            .mnav__foot { margin-top: auto; padding-top: 2rem; font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; color: #d8d6b0; }
+            .mnav__foot { margin-top: auto; padding-top: 2rem; font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; color: var(--chalk); }
         }
 
         /* ---- Footer ---- */
@@ -215,7 +233,7 @@
         }
         .footer-logo { background: var(--chalk); padding: 14px; display: inline-block; line-height: 0; align-self: start; }
         .footer-logo img { display: block; width: 180px; max-width: 100%; height: auto; }
-        .site-footer h4 { font-family: var(--mono); font-weight: 500; font-size: .75rem; text-transform: uppercase; letter-spacing: .14em; color: #d8d6b0; margin: 0 0 .9rem; }
+        .site-footer h4 { font-family: var(--mono); font-weight: 500; font-size: .75rem; text-transform: uppercase; letter-spacing: .14em; color: var(--chalk); margin: 0 0 .9rem; }
         .site-footer a { color: var(--chalk); }
         .site-footer a:hover { color: var(--teak); }
         .footer-col p, .footer-col address { font-style: normal; font-size: .9375rem; line-height: 1.7; margin: 0 0 .5rem; }
@@ -224,7 +242,7 @@
         .site-footer__base {
             max-width: var(--max); margin: 0 auto; padding: 1.25rem var(--gutter) 2.25rem;
             border-top: 1px solid rgba(246,243,234,.25); display: flex; flex-wrap: wrap; gap: .75rem 2rem;
-            justify-content: space-between; font-family: var(--mono); font-size: .75rem; letter-spacing: .06em; color: #d8d6b0;
+            justify-content: space-between; font-family: var(--mono); font-size: .75rem; letter-spacing: .06em; color: var(--chalk);
         }
         .meaning em { font-style: italic; color: var(--chalk); }
 
@@ -293,7 +311,7 @@
 
     <header class="site-header">
         <div class="site-header__in">
-            <a class="brand" href="/" aria-label="Anyo45 — home">
+            <a class="brand" href="/" aria-label="Anyo at Disenyo — home">
                 <span class="brand__mark"><img src="/uploads/logo.jpg" alt="Anyo at Disenyo monogram"></span>
                 <span class="brand__txt">
                     <span class="brand__name">Anyo&nbsp;at&nbsp;Disenyo</span>
@@ -314,7 +332,7 @@
     <div class="mnav" id="mnav">
         <div class="mnav__in">
             <div class="mnav__top">
-                <span class="brand__sub" style="color:#d8d6b0">Anyo at Disenyo</span>
+                <span class="brand__sub" style="color:var(--chalk)">Anyo at Disenyo</span>
                 <button class="mnav__close" id="menuClose" aria-label="Close menu">Close</button>
             </div>
             <nav class="mnav__links" aria-label="Mobile">
@@ -413,7 +431,7 @@
 
 <section class="band band--olive cta-band reveal" style="text-align:center">
     <div class="wrap">
-        <p class="eyebrow" style="color:#e3e1bd">Prefer to talk first?</p>
+        <p class="eyebrow" style="color:var(--chalk)">Prefer to talk first?</p>
         <h2 style="color:var(--chalk);font-size:clamp(2rem,4.5vw,3.2rem);max-width:22ch;margin:0 auto 1.6rem">Message the studio on Facebook</h2>
         <a class="btn btn--light" href="https://www.facebook.com/anyoatdisenyo" target="_blank" rel="noopener">Open Facebook <span class="arrow" aria-hidden="true">&rarr;</span></a>
     </div>
